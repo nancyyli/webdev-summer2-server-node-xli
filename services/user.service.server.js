@@ -4,6 +4,7 @@ module.exports = function (app) {
   app.get('/api/user/:userName', findUserByUsername);
   app.post('/api/user', createUser);
   app.get('/api/profile', profile);
+  app.put('/api/profile', updateProfile);
   app.post('/api/logout', logout);
   app.post('/api/login', login);
 
@@ -24,13 +25,13 @@ module.exports = function (app) {
     res.send(200);
   }
 
-  // function findUserById(req, res) {
-  //   var id = req.params['userId'];
-  //   userModel.findUserById(id)
-  //     .then(function (user) {
-  //       res.json(user);
-  //     })
-  // }
+  function findUserById(req, res) {
+    var id = req.params['userId'];
+    userModel.findUserById(id)
+      .then(function (user) {
+        res.json(user);
+      })
+  }
 
   function findUserByUsername(req, res) {
     var username = req.params['userName'];
@@ -40,7 +41,9 @@ module.exports = function (app) {
   }
 
   function profile(req, res) {
-    res.send(req.session['currentUser']);
+    userModel.findUserById(req.session['currentUser']._id).then(function (user) {
+      res.json(user);
+    })
   }
 
   function createUser(req, res) {
@@ -50,6 +53,12 @@ module.exports = function (app) {
         req.session['currentUser'] = user;
         res.send(user);
       })
+  }
+
+  function updateProfile(req, res) {
+    var updatedUser = req.body;
+    var user = userModel.updateUser(updatedUser);  //change current user later
+    res.send(user); 
   }
 
   function findAllUsers(req, res) {
