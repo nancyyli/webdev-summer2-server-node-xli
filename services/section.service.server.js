@@ -5,8 +5,10 @@ module.exports = function (app) {
     app.post('/api/section/:sectionId/enrollment', enrollStudentInSection);
     app.get('/api/student/section', findSectionsForStudent);
     app.get('/api/section/:sectionId', findSectionById);
+    app.delete('/api/section/:sectionId', deleteSection);
     app.delete('/api/section/:sectionId/enrollment/:enrollmentId', unenrollStudentinSection);
-  
+    app.put('/api/section/:sectionId', updateSectionById);
+    
     var sectionModel = require('../models/section/section.model.server');
     var enrollmentModel = require('../models/enrollment/enrollment.model.server');
   
@@ -19,7 +21,11 @@ module.exports = function (app) {
           res.json(enrollments);
         });
     }
-  
+
+    function updateSectionById(req, res) {
+        var section = sectionModel.updateSection(updatedSection);
+        res.send(section);
+    }
     function enrollStudentInSection(req, res) {
       var sectionId = req.params.sectionId;
       var currentUser = req.session.currentUser;
@@ -57,6 +63,22 @@ module.exports = function (app) {
           res.json(enrollment);
         })
 
+    }
+
+    function deleteSection(req, res) {
+        var sectionId = req.params.sectionId;
+
+        sectionmodel.deleteSection(sectionId)
+        .then(function() {
+            enrollmentModel.findSectionById(sectionId)
+            .then(function(enrollment) {
+                enrollmentModel.unenrollStudentinSection(enrollment._id);
+            })
+            .then(function(enrollment) {
+              res.json(enrollment);
+            })
+        })
+      
     }
 
     function findSectionById(req, res) {
