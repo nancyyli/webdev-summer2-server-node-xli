@@ -24,7 +24,7 @@ function updateSection(sectionId, section) {
 }
 
 function deleteSection(sectionId) {
-  return enrollmentModel.remove({_id: sectionId});
+  return sectionModel.remove({_id: sectionId});
 }
 
 function decrementSectionSeats(sectionId) {

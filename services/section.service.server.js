@@ -28,6 +28,7 @@ module.exports = function (app) {
         var section = sectionModel.updateSection(sectionId, updatedSection);
         res.send(section);
     }
+    
     function enrollStudentInSection(req, res) {
       var sectionId = req.params.sectionId;
       var currentUser = req.session.currentUser;
@@ -69,18 +70,17 @@ module.exports = function (app) {
 
     function deleteSection(req, res) {
         var sectionId = req.params.sectionId;
-
-        sectionmodel.deleteSection(sectionId)
+        
+        sectionModel.deleteSection(sectionId)
         .then(function() {
-            enrollmentModel.findSectionById(sectionId)
-            .then(function(enrollment) {
-                enrollmentModel.unenrollStudentinSection(enrollment._id);
-            })
-            .then(function(enrollment) {
-              res.json(enrollment);
-            })
-        })
-      
+          enrollmentModel.findEnrollmentBySectionId(sectionId)
+          .then(function(enrollment) {
+            enrollmentModel.unenrollStudentinSection(enrollment._id);
+          })
+          .then(function(enrollment) {
+            res.json(enrollment);
+          })
+        }) 
     }
 
     function findSectionById(req, res) {
