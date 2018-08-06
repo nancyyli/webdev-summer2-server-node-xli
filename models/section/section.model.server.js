@@ -14,9 +14,9 @@ function findSectionById(sectionId) {
   return sectionModel.findById(sectionId);
 }
 
-function updateSection(section) {
+function updateSection(sectionId, section) {
   var section;
-  sectionModel.findOneAndUpdate({_id: section._id},
+  sectionModel.findOneAndUpdate({_id: sectionId},
      {$set:{name:section.name, seats:section.seats}}, {new: true}, function(err, doc){
 
     user = doc;
@@ -49,6 +49,6 @@ module.exports = {
   decrementSectionSeats: decrementSectionSeats,
   findSectionById: findSectionById,
   deleteSection: deleteSection,
-  updateSection,
+  updateSection: updateSection,
   incrementSectionSeats: incrementSectionSeats
 };

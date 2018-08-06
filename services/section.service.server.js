@@ -8,7 +8,7 @@ module.exports = function (app) {
     app.delete('/api/section/:sectionId', deleteSection);
     app.delete('/api/section/:sectionId/enrollment/:enrollmentId', unenrollStudentinSection);
     app.put('/api/section/:sectionId', updateSectionById);
-    
+
     var sectionModel = require('../models/section/section.model.server');
     var enrollmentModel = require('../models/enrollment/enrollment.model.server');
   
@@ -23,7 +23,9 @@ module.exports = function (app) {
     }
 
     function updateSectionById(req, res) {
-        var section = sectionModel.updateSection(updatedSection);
+        var sectionId = req.params.sectionId;
+        var updatedSection = req.body;
+        var section = sectionModel.updateSection(sectionId, updatedSection);
         res.send(section);
     }
     function enrollStudentInSection(req, res) {
