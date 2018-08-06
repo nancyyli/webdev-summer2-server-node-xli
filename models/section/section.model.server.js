@@ -14,6 +14,19 @@ function findSectionById(sectionId) {
   return sectionModel.findById(sectionId);
 }
 
+function updateSection(sectionId, section) {
+  var section;
+  sectionModel.findOneAndUpdate({_id: sectionId},
+     {$set:{name:section.name, seats:section.seats}}, {new: true}, function(err, doc){
+
+    user = doc;
+  })
+}
+
+function deleteSection(sectionId) {
+  return sectionModel.remove({_id: sectionId});
+}
+
 function decrementSectionSeats(sectionId) {
   return sectionModel.update({
     _id: sectionId
@@ -35,5 +48,7 @@ module.exports = {
   findSectionsForCourse: findSectionsForCourse,
   decrementSectionSeats: decrementSectionSeats,
   findSectionById: findSectionById,
+  deleteSection: deleteSection,
+  updateSection: updateSection,
   incrementSectionSeats: incrementSectionSeats
 };
