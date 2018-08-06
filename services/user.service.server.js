@@ -7,6 +7,7 @@ module.exports = function (app) {
   app.put('/api/profile', updateProfile);
   app.post('/api/logout', logout);
   app.post('/api/login', login);
+  app.delete('/api/profile', deleteUser);
 
   var userModel = require('../models/user/user.model.server');
 
@@ -29,6 +30,14 @@ module.exports = function (app) {
     var id = req.params['userId'];
     userModel.findUserById(id)
       .then(function (user) {
+        res.json(user);
+      })
+  }
+
+  function deleteUser(req, res) {
+    var userId = req.session['currentUser']._id;
+    userModel.deleteUser(userId)
+      .then(function(user) {
         res.json(user);
       })
   }
