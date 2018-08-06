@@ -21,6 +21,9 @@ function findAllUsers() {
   return userModel.find();
 }
 
+function deleteUser(userId) {
+  return userModel.remove({_id: userId});
+}
 function updateUser(user) {
   var user;
   userModel.findOneAndUpdate({_id: user._id},
@@ -33,6 +36,7 @@ return user;
 
 var api = {
   createUser: createUser,
+  deleteUser: deleteUser,
   findAllUsers: findAllUsers,
   findUserByUsername: findUserByUsername,
   updateUser: updateUser,
