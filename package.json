@@ -4,27 +4,17 @@
   "description": "Node server for webdev summer 2 2018",
   "main": "index.js",
   "scripts": {
-    "ng": "ng",
-    "start": "node server.js",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod"
-  },
-  "engines": {
-    "node": "8.11.1",
-    "npm": "6.0.1"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nancy Li",
   "license": "ISC",
   "dependencies": {
-    "typescript": "~2.7.2",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
-    "mongoose": "^5.2.6",
-    "@angular/compiler-cli": "^4.0.0",
-    "@angular/cli": "1.2.3"
+    "mongoose": "^5.2.6"
+  },
+  "engines": {
+    "node": "10.6.0"
   }
 }
