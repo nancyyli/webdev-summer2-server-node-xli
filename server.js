@@ -22,7 +22,7 @@ app.use(session({
 }));
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/webdev-summer2');
+mongoose.connect('mongodb://heroku_5b5zrf07:d7p185r5u0k0644ddpnitf84ev@ds215822.mlab.com:15822/heroku_5b5zrf07');
 
 const userService = require('./services/user.service.server'); //(app);
 userService(app);
