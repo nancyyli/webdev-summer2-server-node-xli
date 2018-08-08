@@ -4,13 +4,6 @@ var session = require('express-session')
 var bodyParser = require('body-parser')
 
 
-// Serve only the static files form the dist directory
-app.use(express.static('./dist/simple-blog-app-angular'));
-
-app.get('/*', function (req, res) {
-  res.sendFile(path.join('./dist/simple-blog-app-angular/index.html'));
-});
-
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Credentials", "true");
