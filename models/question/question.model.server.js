@@ -6,6 +6,10 @@ var questionModel = mongoose.model(
   questionSchema
 );
 
+function createQuestion(question) {
+    return questionModel.create(question);
+}
 
 module.exports = {
+    createQuestion: createQuestion
 };

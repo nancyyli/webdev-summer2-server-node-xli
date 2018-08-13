@@ -1,15 +1,13 @@
 var mongoose = require('mongoose');
+var choice = require('../choice/choice.schema.server');
 var questionSchema = mongoose.Schema({
     name: String,
     points: Number,
     description: String,
     questionType: String,
-    blanks: String,
+    blanks: [String],
     true: Boolean,
-    choices: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'ChoiceModel'
-      }]
+    choices: [choice]
 }, {collection: 'question'});
 module.exports = questionSchema;
 

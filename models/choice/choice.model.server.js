@@ -6,6 +6,10 @@ var choiceModel = mongoose.model(
   choiceSchema
 );
 
+function createChoice(choice) {
+    return choiceModel.create(choice);
+}
 
 module.exports = {
+    createChoice: createChoice
 };
