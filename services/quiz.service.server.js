@@ -2,11 +2,11 @@
 module.exports = function (app) {
 
     app.get('/api/quiz', findAllQuizzes);
-    // app.get('/api/quiz/:quizId', findQuizById);
+    app.get('/api/quiz/:quizId', findQuizById);
     // app.post('/api/quiz/:quizId', submitQuiz);
     // app.get('/api/quiz/:quizId/submissions', findSubmissionsForQuiz);
   
-    var quizzes = require('./quizzes.json');
+    var quizModel = require('../models/quiz/quiz.model.server');
   
     // // var submissionModel = require('../models/submission/submission.model.server');
   
@@ -34,9 +34,32 @@ module.exports = function (app) {
     //     return q._id == req.params.quizId });
     //   res.json(quiz[0]);
     // }
+
+    function findQuizById(req, res) {
+        var id = req.params['quizId'];
+        quizModel.findQuizById(id)
+          .then(function (quiz) {
+            res.json(quiz);
+          })
+    }
   
     function findAllQuizzes(req, res) {
-      res.json(quizzes); 
+        // quiz =   {
+        //     "name": "quiz 1",
+        //     "questions": 
+        //       {"name": "question 1",
+        //       "points": 12,
+        //       "description": "description 2",
+        //       "questionType": "Essay"}
+            
+        //   },
+        // quizModel.createQuiz(quiz).then(function (quizzes) {
+        //     res.send(quizzes);
+        // });
+        quizModel.findAllQuizzes()
+        .then(function (quizzes) {
+          res.send(quizzes);
+        })
     }
   
   }
