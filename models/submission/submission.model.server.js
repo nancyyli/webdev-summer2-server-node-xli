@@ -6,10 +6,15 @@ var submissionModel = mongoose.model(
   submissionSchema
 );
 
-function submitQuiz(answers, quizId, userId) {
-    return submissionModel.create({"quiz":quizId, "student": userId, "answers":answers});
+function submitQuiz(answers, quizId, userName) {
+    return submissionModel.create({"quiz":quizId, "student": userName, "answers":answers});
 
 }
+
+function findSubmissionsByQuiz(quizId) {
+    return submissionModel.find({quiz: quizId});
+}
 module.exports = {
-    submitQuiz: submitQuiz
+    submitQuiz: submitQuiz,
+    findSubmissionsByQuiz: findSubmissionsByQuiz
 };

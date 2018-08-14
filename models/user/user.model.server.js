@@ -13,6 +13,7 @@ function findUserById(userId) {
 function findUserByUsername(username) {
   return userModel.findOne({username: username}, {username: 1});
 }
+
 function createUser(user) {
   return userModel.create(user);
 }

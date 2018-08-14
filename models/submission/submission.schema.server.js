@@ -6,7 +6,7 @@ var submissionSchema = mongoose.Schema({
         ref: 'QuizModel'
     },
     student: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.String,
         ref: 'UserModel'
     },
     date: {

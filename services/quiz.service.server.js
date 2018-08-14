@@ -4,28 +4,28 @@ module.exports = function (app) {
     app.get('/api/quiz', findAllQuizzes);
     app.get('/api/quiz/:quizId', findQuizById);
     app.post('/api/quiz/:quizId', submitQuiz);
-    // app.get('/api/quiz/:quizId/submissions', findSubmissionsForQuiz);
+    app.get('/api/quiz/:quizId/submissions', findSubmissionsByQuiz);
   
     var quizModel = require('../models/quiz/quiz.model.server');
     var choiceModel = require('../models/choice/choice.model.server');
     var questionModel = require('../models/question/question.model.server');
     var submissionModel = require('../models/submission/submission.model.server');
   
-    // function findSubmissionsForQuiz(req, res) {
-    //   var quizId = req.params.quizId;
-    //   submissionModel
-    //     .findSubmissionsForQuiz(quizId)
-    //     .then(function (submissions) {
-    //       res.json(submissions);
-    //     });
-    // }
+    function findSubmissionsByQuiz(req, res) {
+      var quizId = req.params.quizId;
+      submissionModel
+        .findSubmissionsByQuiz(quizId)
+        .then(function (submissions) {
+          res.json(submissions);
+        });
+    }
   
     function submitQuiz(req, res) {
       var answers = req.body;
       var quizId = req.params.quizId;
-      var userId = req.session['currentUser']._id;
+      var userName = req.session['currentUser'].username;
       submissionModel
-        .submitQuiz(answers, quizId, userId)
+        .submitQuiz(answers, quizId, userName)
         .then(function (answers) {
           res.json(answers);
         })
