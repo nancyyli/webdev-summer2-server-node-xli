@@ -5,6 +5,7 @@ module.exports = function (app) {
     app.get('/api/quiz/:quizId', findQuizById);
     app.post('/api/quiz/:quizId', submitQuiz);
     app.get('/api/quiz/:quizId/submissions', findSubmissionsByQuiz);
+    app.get('/api/quiz/:quizId/submissions/:submissionId', findSubmissionById);
   
     var quizModel = require('../models/quiz/quiz.model.server');
     var choiceModel = require('../models/choice/choice.model.server');
@@ -18,6 +19,15 @@ module.exports = function (app) {
         .then(function (submissions) {
           res.json(submissions);
         });
+    }
+
+    function findSubmissionById(req, res) {
+      var submissionId = req.params.submissionId;
+      submissionModel 
+        .findSubmissionById(submissionId)
+        .then(function (submission) { 
+          res.json(submission);
+        })
     }
   
     function submitQuiz(req, res) {
@@ -41,6 +51,7 @@ module.exports = function (app) {
     }
   
     function findAllQuizzes(req, res) {
+
         // quizModel.createQuiz(quiz).then(function (quizzes) {
         //     res.send(quizzes);
         // });

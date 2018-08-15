@@ -11,10 +11,15 @@ function submitQuiz(answers, quizId, userName) {
 
 }
 
+function findSubmissionById(id) {
+    return submissionModel.findById(id);
+}
+
 function findSubmissionsByQuiz(quizId) {
     return submissionModel.find({quiz: quizId});
 }
 module.exports = {
     submitQuiz: submitQuiz,
-    findSubmissionsByQuiz: findSubmissionsByQuiz
+    findSubmissionsByQuiz: findSubmissionsByQuiz,
+    findSubmissionById: findSubmissionById
 };

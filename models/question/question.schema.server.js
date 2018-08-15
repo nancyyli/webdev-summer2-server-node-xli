@@ -5,7 +5,7 @@ var questionSchema = mongoose.Schema({
     points: Number,
     description: String,
     questionType: String,
-    blanks: [String],
+    blanks: String,
     true: Boolean,
     choices: [choice]
 }, {collection: 'question'});
