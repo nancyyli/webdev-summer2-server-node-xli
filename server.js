@@ -22,10 +22,10 @@ app.use(session({
   secret: 'any string'
 }));
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/webdev-summer2');
 // const mongoose = require('mongoose');
-// // mongoose.connect('mongodb://heroku_5b5zrf07:d7p185r5u0k0644ddpnitf84ev@ds215822.mlab.com:15822/heroku_5b5zrf07');
+// mongoose.connect('mongodb://localhost/webdev-summer2');
+const mongoose = require('mongoose');
+// mongoose.connect('mongodb://heroku_5b5zrf07:d7p185r5u0k0644ddpnitf84ev@ds215822.mlab.com:15822/heroku_5b5zrf07');
 
 const userService = require('./services/user.service.server'); //(app);
 userService(app);
@@ -33,5 +33,5 @@ userService(app);
 require('./services/quiz.service.server')(app);
 require('./services/section.service.server')(app);
 
-// app.listen(process.env.PORT || 3000)
-app.listen(3000);
+app.listen(process.env.PORT || 3000)
+// app.listen(3000);
